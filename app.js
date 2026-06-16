@@ -114,7 +114,7 @@ const daftarProduk = [
     tag: "NEW ARRIVAL",
     deskripsi:
       "Kaos premium dari katun organik dengan ketebalan 240 Gsm. Jatuh sempurna di badan, adem, dan sangat lembut.",
-    img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800",
+    img: "https://images.unsplash.com/photo-1693443687750-611ad77f3aba?q=80&w=870",
     harga: 165000,
   },
   {
