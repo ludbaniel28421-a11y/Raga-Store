@@ -124,7 +124,7 @@ const daftarProduk = [
     tag: "BEST SELLER",
     deskripsi:
       "Kemeja flanel berpotongan relax-fit bermotif kotak klasik Jepang. Ideal dijadikan luaran casual harian Anda.",
-    img: "https://images.unsplash.com/photo-1693443687750-611ad77f3aba?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    img: "https://huckberry.imgix.net/spree/products/785741/original/93789_Flint_and_Tinder_The_Cabin_Flannel_Coffee_Twill_01_Product_on_White.jpg?",
     harga: 289000,
   },
   {
