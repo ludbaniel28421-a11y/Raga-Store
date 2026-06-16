@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RagaStore - Premium Fashion & Lifestyle Essentials</title>
+
+    <!-- Framework & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-zinc-50 text-zinc-900 antialiased overflow-x-hidden">
+    <!-- =========================================
+         [NOTIFICATION TOAST CONTAINER]
+         ========================================= -->
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"
+    ></div>
+
+    <!-- =========================================
+         [NAVIGATION BAR]
+         ========================================= -->
+    <nav
+      class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-zinc-100"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand Logo -->
+          <div
+            class="flex items-center gap-3 cursor-pointer group"
+            onclick="filterProduk('Semua')"
+          >
+            <!-- Logo Baru -->
+            <div
+              class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-all duration-300"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 6H13C16 6 18 8 18 11C18 14 16 16 13 16H10"
+                  stroke="white"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <path
+                  d="M10 16L16 22"
+                  stroke="white"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M7 6L17 16"
+                  stroke="white"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+
+            <span class="font-extrabold text-2xl tracking-tight text-zinc-900">
+              Raga<span class="text-indigo-600">Store</span>
+            </span>
+          </div>
+
+          <!-- Desktop Menu Links -->
+          <div
+            class="hidden md:flex items-center gap-8 font-semibold text-zinc-600 text-sm"
+          >
+            <a
+              href="#"
+              class="hover:text-black transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all"
+              >Beranda</a
+            >
+            <a
+              href="#fitur-section"
+              class="hover:text-black transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all"
+              >Tentang Kami</a
+            >
+            <a
+              href="#produk-section"
+              class="hover:text-black transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all"
+              >Koleksi</a
+            >
+            <a
+              href="#medsos-section"
+              class="hover:text-black transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all"
+              >Sosial Media</a
+            >
+            <a
+              href="#footer-section"
+              class="hover:text-black transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black hover:after:w-full after:transition-all"
+              >Kontak</a
+            >
+          </div>
+
+          <!-- Icons & CTA -->
+          <div class="flex items-center gap-4">
+            <!-- Cart Button -->
+            <button
+              class="relative cursor-pointer p-3 text-zinc-700 hover:text-black hover:bg-zinc-100 rounded-full transition-colors"
+              onclick="toggleKeranjang()"
+              aria-label="Buka Keranjang"
+            >
+              <i class="fas fa-shopping-cart text-xl"></i>
+              <span
+                id="cart-count"
+                class="absolute top-1.5 right-1.5 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white transform bg-rose-500 rounded-full scale-90 hidden"
+                >0</span
+              >
+            </button>
+
+            <!-- Login Button (Desktop) -->
+            <button
+              class="hidden md:block border-2 border-zinc-900 px-6 py-2 rounded-xl text-zinc-900 hover:bg-zinc-900 hover:text-white transition-all duration-300 font-bold text-sm tracking-wider"
+            >
+              LOGIN
+            </button>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button
+              class="md:hidden p-3 text-zinc-700 hover:text-black hover:bg-zinc-100 rounded-full transition-colors"
+              onclick="toggleMobileMenu()"
+              aria-label="Menu"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- =========================================
+         [MOBILE MENU DRAWER]
+         ========================================= -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 overflow-hidden hidden">
+      <div
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onclick="toggleMobileMenu()"
+      ></div>
+      <div
+        class="fixed inset-y-0 left-0 max-w-xs w-full bg-white shadow-2xl flex flex-col p-6 justify-between transform -translate-x-full drawer-transition"
+      >
+        <div class="space-y-6">
+          <div
+            class="flex justify-between items-center pb-4 border-b border-zinc-100"
+          >
+            <span class="font-extrabold text-xl tracking-tight text-zinc-900"
+              >Raga<span class="text-indigo-600">Store</span></span
+            >
+            <button
+              onclick="toggleMobileMenu()"
+              class="p-2 text-zinc-400 hover:text-black rounded-full hover:bg-zinc-100"
+            >
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+          <div class="flex flex-col gap-4 font-bold text-zinc-700">
+            <a
+              href="#"
+              onclick="toggleMobileMenu()"
+              class="p-2 hover:bg-zinc-50 rounded-lg hover:text-indigo-600 transition-colors"
+              >Beranda</a
+            >
+            <a
+              href="#fitur-section"
+              onclick="toggleMobileMenu()"
+              class="p-2 hover:bg-zinc-50 rounded-lg hover:text-indigo-600 transition-colors"
+              >Tentang Kami</a
+            >
+            <a
+              href="#produk-section"
+              onclick="toggleMobileMenu()"
+              class="p-2 hover:bg-zinc-50 rounded-lg hover:text-indigo-600 transition-colors"
+              >Koleksi</a
+            >
+            <a
+              href="#medsos-section"
+              onclick="toggleMobileMenu()"
+              class="p-2 hover:bg-zinc-50 rounded-lg hover:text-indigo-600 transition-colors"
+              >Sosial Media</a
+            >
+            <a
+              href="#footer-section"
+              onclick="toggleMobileMenu()"
+              class="p-2 hover:bg-zinc-50 rounded-lg hover:text-indigo-600 transition-colors"
+              >Kontak</a
+            >
+          </div>
+        </div>
+        <div class="space-y-4">
+          <button
+            class="w-full py-3 bg-zinc-900 text-white rounded-xl font-bold text-sm tracking-wider hover:bg-black transition-colors"
+          >
+            LOGIN / DAFTAR
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================
+         [HERO BANNER SLIDER]
+         ========================================= -->
+    <div class="relative w-full overflow-hidden bg-zinc-950 group">
+      <div id="slider-wrapper" class="flex">
+        <!-- Slide 1 -->
+        <div
+          class="min-w-full relative h-[450px] md:h-[650px] flex items-center"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover opacity-50"
+            src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=2000"
+            alt="Gaya Hidup Premium"
+          />
+          <div
+            class="relative max-w-7xl mx-auto px-6 py-24 sm:px-8 lg:px-12 flex flex-col items-center text-center w-full text-white z-10"
+          >
+            <span
+              class="text-indigo-400 font-extrabold tracking-widest text-xs uppercase mb-3 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-400/20"
+              >ESTETIKA TERBARU</span
+            >
+            <h1
+              class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight"
+            >
+              Elevate Your Everyday Style
+            </h1>
+            <p
+              class="max-w-2xl text-base md:text-xl text-zinc-300 mb-10 leading-relaxed font-light"
+            >
+              Temukan perpaduan sempurna antara kenyamanan premium dan desain
+              modern kontemporer. Dirancang eksklusif untuk mengekspresikan
+              karakter terbaik Anda di setiap aktivitas.
+            </p>
+            <a
+              href="#produk-section"
+              class="bg-white text-zinc-900 px-8 py-4 font-bold rounded-xl hover:bg-zinc-100 transition-all shadow-xl hover:shadow-white/10 uppercase tracking-wider text-sm flex items-center gap-2 group-hover:scale-105 duration-300"
+            >
+              Jelajahi Koleksi <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div
+          class="min-w-full relative h-[450px] md:h-[650px] flex items-center"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover opacity-50"
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=2000"
+            alt="Koleksi Aksesoris"
+          />
+          <div
+            class="relative max-w-7xl mx-auto px-6 py-24 sm:px-8 lg:px-12 flex flex-col items-center text-center w-full text-white z-10"
+          >
+            <span
+              class="text-amber-400 font-extrabold tracking-widest text-xs uppercase mb-3 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-400/20"
+              >PENAWARAN TERBATAS</span
+            >
+            <h1
+              class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight"
+            >
+              Weekend Exclusive Selection
+            </h1>
+            <p
+              class="max-w-2xl text-base md:text-xl text-zinc-300 mb-10 leading-relaxed font-light"
+            >
+              Nikmati penawaran istimewa akhir pekan. Dapatkan potongan harga
+              eksklusif hingga 50% untuk koleksi aksesoris kurasi terbaik kami.
+              Persediaan sangat terbatas!
+            </p>
+            <button
+              onclick="filterProduk('Aksesoris')"
+              class="bg-indigo-600 text-white px-8 py-4 font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-xl hover:shadow-indigo-500/20 uppercase tracking-wider text-sm"
+            >
+              Lihat Diskon Aksesoris
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div
+          class="min-w-full relative h-[450px] md:h-[650px] flex items-center"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover opacity-50"
+            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=2000"
+            alt="Bahan Premium"
+          />
+          <div
+            class="relative max-w-7xl mx-auto px-6 py-24 sm:px-8 lg:px-12 flex flex-col items-center text-center w-full text-white z-10"
+          >
+            <span
+              class="text-emerald-400 font-extrabold tracking-widest text-xs uppercase mb-3 bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-400/20"
+              >ESENSIAL ALAMI</span
+            >
+            <h1
+              class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight"
+            >
+              The Art of Pure Material
+            </h1>
+            <p
+              class="max-w-2xl text-base md:text-xl text-zinc-300 mb-10 leading-relaxed font-light"
+            >
+              Dibuat secara presisi dari material serat organik berkualitas
+              tinggi yang memiliki sirkulasi udara luar biasa. Nyaman dipakai
+              sepanjang hari, kapan pun dan di mana pun.
+            </p>
+            <a
+              href="#produk-section"
+              class="border-2 border-white text-white px-8 py-4 font-bold rounded-xl hover:bg-white hover:text-black transition-all uppercase tracking-wider text-sm"
+            >
+              Mulai Belanja
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider Arrow Navigation -->
+      <button
+        onclick="prevSlide()"
+        class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-4 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 z-10 border border-white/10 shadow-lg"
+      >
+        <i class="fas fa-chevron-left text-xl"></i>
+      </button>
+      <button
+        onclick="nextSlide()"
+        class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-4 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 z-10 border border-white/10 shadow-lg"
+      >
+        <i class="fas fa-chevron-right text-xl"></i>
+      </button>
+
+      <!-- Slider Dot Indicators -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+        <div
+          onclick="goToSlide(0)"
+          class="dot w-3.5 h-3.5 rounded-full bg-white/40 cursor-pointer transition-all"
+        ></div>
+        <div
+          onclick="goToSlide(1)"
+          class="dot w-3.5 h-3.5 rounded-full bg-white/40 cursor-pointer transition-all"
+        ></div>
+        <div
+          onclick="goToSlide(2)"
+          class="dot w-3.5 h-3.5 rounded-full bg-white/40 cursor-pointer transition-all"
+        ></div>
+      </div>
+    </div>
+
+    <!-- =========================================
+         [PRODUCT GALLERY SECTION]
+         ========================================= -->
+    <main
+      id="produk-section"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
+    >
+      <div
+        class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-6 border-b border-zinc-100 pb-8"
+      >
+        <div>
+          <span
+            class="text-indigo-600 font-extrabold text-xs tracking-widest uppercase block mb-2"
+            >GALERI PRODUK KAMI</span
+          >
+          <h2
+            class="text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight"
+          >
+            Koleksi Terpopuler Musim Ini
+          </h2>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div
+          class="flex overflow-x-auto pb-3 lg:pb-0 w-full lg:w-auto gap-2 -mx-4 px-4 lg:mx-0 lg:px-0"
+        >
+          <button
+            onclick="filterProduk('Semua')"
+            class="filter-btn px-6 py-2.5 bg-black text-white rounded-full font-bold text-xs tracking-wider uppercase transition-all shadow-md whitespace-nowrap"
+          >
+            Semua
+          </button>
+          <button
+            onclick="filterProduk('Baju')"
+            class="filter-btn px-6 py-2.5 bg-white text-zinc-600 border border-zinc-200 rounded-full font-bold text-xs tracking-wider uppercase hover:border-black hover:text-black transition-all whitespace-nowrap"
+          >
+            Baju
+          </button>
+          <button
+            onclick="filterProduk('Celana')"
+            class="filter-btn px-6 py-2.5 bg-white text-zinc-600 border border-zinc-200 rounded-full font-bold text-xs tracking-wider uppercase hover:border-black hover:text-black transition-all whitespace-nowrap"
+          >
+            Celana
+          </button>
+          <button
+            onclick="filterProduk('Topi')"
+            class="filter-btn px-6 py-2.5 bg-white text-zinc-600 border border-zinc-200 rounded-full font-bold text-xs tracking-wider uppercase hover:border-black hover:text-black transition-all whitespace-nowrap"
+          >
+            Topi
+          </button>
+          <button
+            onclick="filterProduk('Aksesoris')"
+            class="filter-btn px-6 py-2.5 bg-white text-zinc-600 border border-zinc-200 rounded-full font-bold text-xs tracking-wider uppercase hover:border-black hover:text-black transition-all whitespace-nowrap"
+          >
+            Aksesoris
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Grid Dynamic Output -->
+      <div
+        id="grid-produk"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+      >
+        <!-- Dinamis dirender oleh JavaScript -->
+      </div>
+    </main>
+
+    <!-- =========================================
+         [TENTANG KAMI / FITUR VALUE SECTION]
+         ========================================= -->
+    <section
+      id="fitur-section"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16"
+    >
+      <!-- Feature 1: Material Premium -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white p-6 md:p-12 rounded-3xl shadow-sm border border-zinc-100"
+      >
+        <div
+          class="aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-100 relative group shadow-inner"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=1000"
+            alt="Material katun premium dan proses produksi RagaStore"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div
+            class="absolute inset-0 bg-indigo-950/10 mix-blend-multiply"
+          ></div>
+        </div>
+        <div class="space-y-6">
+          <span
+            class="text-indigo-600 font-extrabold text-xs tracking-widest uppercase bg-indigo-50 px-3 py-1.5 rounded-lg"
+            >MATERIAL PREMIUM</span
+          >
+          <h3 class="text-3xl font-extrabold text-zinc-900 leading-tight">
+            Kualitas Serat Terbaik & Kenyamanan Maksimal
+          </h3>
+          <p class="text-zinc-500 leading-relaxed font-light">
+            Setiap helai benang dipilih secara cermat melalui proses kurasi
+            ketat demi memastikan kenyamanan kulit Anda. Kami berkomitmen
+            menggunakan material ramah lingkungan dengan kelembutan optimal yang
+            sejuk, tahan lama, dan mampu beradaptasi sempurna di berbagai cuaca
+            ekstrem Indonesia.
+          </p>
+          <div class="flex items-center gap-6 pt-2">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-certificate text-indigo-600 text-lg"></i>
+              <span class="font-bold text-sm text-zinc-800">100% Organik</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fas fa-shield-alt text-indigo-600 text-lg"></i>
+              <span class="font-bold text-sm text-zinc-800"
+                >Garansi Jahitan</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2: Desain Kontemporer -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white p-6 md:p-12 rounded-3xl shadow-sm border border-zinc-100"
+      >
+        <div class="space-y-6 order-2 md:order-1">
+          <span
+            class="text-indigo-600 font-extrabold text-xs tracking-widest uppercase bg-indigo-50 px-3 py-1.5 rounded-lg"
+            >DESAIN MODERN</span
+          >
+          <h3 class="text-3xl font-extrabold text-zinc-900 leading-tight">
+            Sentuhan Estetika Modern & Siluet Timeless
+          </h3>
+          <p class="text-zinc-500 leading-relaxed font-light">
+            Koleksi pakaian kami memadukan tren kontemporer internasional dan
+            fungsionalitas harian. Kami percaya bahwa gaya terbaik tidak lekang
+            oleh perubahan zaman. Dengan potongan pola yang presisi, produk kami
+            selalu siap membuat Anda tampil menawan baik di suasana santai
+            maupun acara formal.
+          </p>
+          <div class="pt-2">
+            <a
+              href="#produk-section"
+              class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-extrabold text-sm tracking-wider uppercase transition-colors"
+            >
+              Lihat Panduan Gaya <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+        <div
+          class="aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-100 order-1 md:order-2 relative group shadow-inner"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1000"
+            alt="Proses desain fashion modern RagaStore"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div
+            class="absolute inset-0 bg-indigo-950/10 mix-blend-multiply"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         [SOCIAL MEDIA CONNECT SECTION]
+         ========================================= -->
+    <section
+      id="medsos-section"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 mb-12 bg-zinc-900 text-white rounded-[2.5rem] shadow-xl relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-indigo-950/50 to-zinc-950 opacity-90"
+      ></div>
+      <div class="relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+          <span
+            class="text-indigo-400 font-extrabold text-xs tracking-widest uppercase"
+            >GABUNG BERSAMA KAMI</span
+          >
+          <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
+            Connect With Us
+          </h2>
+          <p class="text-zinc-300 font-light">
+            Ikuti kisah inspiratif kami, dapatkan tips perpaduan outfit harian,
+            dan jadilah yang pertama tahu promo kejutan terbaru.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <!-- Instagram Card -->
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            class="flex items-center gap-4 p-6 rounded-2xl border border-zinc-800 hover:border-pink-500 hover:bg-pink-500/5 transition-all group bg-zinc-950/50"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-400 text-2xl group-hover:bg-gradient-to-tr group-hover:from-amber-400 group-hover:via-pink-500 group-hover:to-purple-600 group-hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-white group-hover:text-pink-400 transition-colors"
+              >
+                Instagram
+              </h3>
+              <p class="text-sm text-zinc-400">@RagaStore.official</p>
+            </div>
+            <i
+              class="fas fa-arrow-right ml-auto text-zinc-600 group-hover:text-pink-500 group-hover:translate-x-1.5 transition-all"
+            ></i>
+          </a>
+
+          <!-- TikTok Card -->
+          <a
+            href="https://tiktok.com"
+            target="_blank"
+            class="flex items-center gap-4 p-6 rounded-2xl border border-zinc-800 hover:border-white hover:bg-white/5 transition-all group bg-zinc-950/50"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-400 text-2xl group-hover:bg-white group-hover:text-black transition-all duration-300"
+            >
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-white group-hover:text-zinc-200 transition-colors"
+              >
+                TikTok
+              </h3>
+              <p class="text-sm text-zinc-400">@RagaStore.style</p>
+            </div>
+            <i
+              class="fas fa-arrow-right ml-auto text-zinc-600 group-hover:text-white group-hover:translate-x-1.5 transition-all"
+            ></i>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            class="flex items-center gap-4 p-6 rounded-2xl border border-zinc-800 hover:border-emerald-500 hover:bg-emerald-500/5 transition-all group bg-zinc-950/50"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-400 text-2xl group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-white group-hover:text-emerald-400 transition-colors"
+              >
+                WhatsApp
+              </h3>
+              <p class="text-sm text-zinc-400">Konsultasi Admin Toko</p>
+            </div>
+            <i
+              class="fas fa-arrow-right ml-auto text-zinc-600 group-hover:text-emerald-500 group-hover:translate-x-1.5 transition-all"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         [FOOTER SECTION]
+         ========================================= -->
+    <footer
+      id="footer-section"
+      class="bg-white border-t border-zinc-200 pt-20 pb-10"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-16"
+        >
+          <!-- Brand Info Column -->
+          <div class="space-y-6">
+            <div
+              class="flex items-center gap-3 cursor-pointer group"
+              onclick="filterProduk('Semua')"
+            >
+              <!-- Logo Baru -->
+              <div
+                class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-all duration-300"
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M7 6H13C16 6 18 8 18 11C18 14 16 16 13 16H10"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <path
+                    d="M10 16L16 22"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  />
+
+                  <path
+                    d="M7 6L17 16"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+
+              <span
+                class="font-extrabold text-2xl tracking-tight text-zinc-900"
+              >
+                Raga<span class="text-indigo-600">Store</span>
+              </span>
+            </div>
+            <p class="text-zinc-500 text-sm leading-relaxed font-light">
+              Merek fashion kurasi premium yang berfokus menghadirkan pakaian
+              kasual berkualitas tinggi, nyaman dipakai, serta berumur panjang.
+            </p>
+            <div class="flex gap-4 text-zinc-400">
+              <a
+                href="#"
+                class="hover:text-indigo-600 hover:scale-110 transition-all"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-square text-2xl"></i
+              ></a>
+              <a
+                href="#"
+                class="hover:text-pink-600 hover:scale-110 transition-all"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram text-2xl"></i
+              ></a>
+              <a
+                href="#"
+                class="hover:text-sky-400 hover:scale-110 transition-all"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter text-2xl"></i
+              ></a>
+              <a
+                href="#"
+                class="hover:text-rose-600 hover:scale-110 transition-all"
+                aria-label="Youtube"
+                ><i class="fab fa-youtube text-2xl"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Navigation Links -->
+          <div>
+            <h4
+              class="font-extrabold text-zinc-900 text-sm uppercase tracking-widest mb-6"
+            >
+              Navigasi Utama
+            </h4>
+            <ul class="space-y-3.5 text-sm text-zinc-500 font-medium">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Beranda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#fitur-section"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Tentang Kami</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#produk-section"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Koleksi Produk</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#medsos-section"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Hubungan Sosial</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#footer-section"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Kontak Resmi</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Customer Services -->
+          <div>
+            <h4
+              class="font-extrabold text-zinc-900 text-sm uppercase tracking-widest mb-6"
+            >
+              Layanan Pelanggan
+            </h4>
+            <ul class="space-y-3.5 text-sm text-zinc-500 font-medium">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Bantuan & FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Lacak Pengiriman</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Kebijakan Pengembalian</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-indigo-600 hover:translate-x-1 transition-all inline-block"
+                  >Garansi Tukar Ukuran</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact & Office Info -->
+          <div>
+            <h4
+              class="font-extrabold text-zinc-900 text-sm uppercase tracking-widest mb-6"
+            >
+              Hubungi Kami
+            </h4>
+            <ul class="space-y-4 text-sm text-zinc-500">
+              <li class="flex items-start gap-3">
+                <i class="fas fa-map-marker-alt mt-1.5 text-zinc-700"></i>
+                <span class="leading-relaxed"
+                  >Jl. Agus Salim No. 123, Purwosari, Surakarta, Jawa
+                  Tengah</span
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-envelope text-zinc-700"></i>
+                <a
+                  href="mailto:support@RagaStore.com"
+                  class="hover:text-indigo-600"
+                  >support@RagaStore.com</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-phone text-zinc-700"></i>
+                <span>+62 812-3456-7890</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright Block -->
+        <div
+          class="border-t border-zinc-200 pt-8 text-center flex flex-col sm:flex-row justify-between items-center gap-4"
+        >
+          <p class="text-zinc-500 text-sm">
+            © 2026 RagaStore. Hak Cipta Dilindungi Undang-Undang.
+          </p>
+          <div class="flex gap-4 text-xs text-zinc-400">
+            <a href="#" class="hover:text-zinc-600">Kebijakan Privasi</a>
+            <span>•</span>
+            <a href="#" class="hover:text-zinc-600">Syarat & Ketentuan</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- =========================================
+         [CART SIDEBAR DRAWER (KERANJANG)]
+         ========================================= -->
+    <div
+      id="sidebar-keranjang"
+      class="fixed inset-0 z-50 overflow-hidden hidden"
+    >
+      <div
+        class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+        onclick="toggleKeranjang()"
+      ></div>
+      <div class="fixed inset-y-0 right-0 max-w-full flex">
+        <!-- Sidebar body dengan animasi translate dari kanan -->
+        <div
+          id="sidebar-panel"
+          class="w-screen max-w-md bg-white shadow-2xl flex flex-col h-full transform translate-x-full drawer-transition"
+        >
+          <!-- Drawer Header -->
+          <div
+            class="flex items-center justify-between p-6 border-b border-zinc-100 bg-zinc-50/50"
+          >
+            <h2
+              class="text-2xl font-extrabold flex items-center gap-3 text-zinc-900"
+            >
+              <i class="fas fa-shopping-cart text-indigo-600"></i> Keranjang
+              (<span id="cart-sidebar-count">0</span>)
+            </h2>
+            <button
+              onclick="toggleKeranjang()"
+              class="p-2.5 text-zinc-400 hover:text-black hover:bg-zinc-100 rounded-full transition-colors"
+              aria-label="Tutup Keranjang"
+            >
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+
+          <!-- Drawer Content List -->
+          <div id="list-keranjang" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Dinamis dirender oleh JavaScript -->
+          </div>
+
+          <!-- Drawer Footer Checkout -->
+          <div
+            id="footer-keranjang"
+            class="border-t border-zinc-100 p-6 bg-zinc-50/80 backdrop-blur-md hidden"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <span
+                class="text-zinc-600 font-semibold text-sm uppercase tracking-wider"
+                >Subtotal Pembayaran</span
+              >
+              <span id="total-harga" class="text-2xl font-black text-indigo-600"
+                >Rp 0</span
+              >
+            </div>
+            <button
+              onclick="bukaModalCheckout()"
+              class="w-full bg-black text-white py-4 rounded-xl font-bold text-lg hover:bg-zinc-800 transition-all hover:shadow-lg active:scale-95 flex justify-center items-center gap-2"
+            >
+              Lanjutkan Ke Checkout <i class="fas fa-arrow-right text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================
+         [INTERACTIVE CHECKOUT MODAL]
+         ========================================= -->
+    <div id="modal-checkout" class="fixed inset-0 z-50 overflow-y-auto hidden">
+      <!-- Backdrop -->
+      <div
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        onclick="tutupModalCheckout()"
+      ></div>
+
+      <!-- Modal Content Centered Container -->
+      <div class="flex min-h-full items-center justify-center p-4">
+        <div
+          class="relative bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl z-10 border border-zinc-100 overflow-hidden transform transition-all"
+        >
+          <!-- Header Modal -->
+          <div
+            class="flex justify-between items-center pb-5 border-b border-zinc-100 mb-6"
+          >
+            <h3
+              class="text-xl font-extrabold text-zinc-900 flex items-center gap-2"
+            >
+              <i class="fas fa-file-invoice-dollar text-indigo-600"></i> Rincian
+              Pesanan & Pembayaran
+            </h3>
+            <button
+              onclick="tutupModalCheckout()"
+              class="p-2 text-zinc-400 hover:text-black hover:bg-zinc-100 rounded-full transition-colors"
+            >
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+
+          <!-- Interactive Checkout Form and Details -->
+          <div id="checkout-main-content">
+            <div class="space-y-5">
+              <!-- Order Summary Box -->
+              <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-100">
+                <h4
+                  class="font-extrabold text-xs text-zinc-500 uppercase tracking-wider mb-2"
+                >
+                  Ringkasan Belanja
+                </h4>
+                <div
+                  id="ringkasan-produk-checkout"
+                  class="max-h-24 overflow-y-auto space-y-2 mb-3 pr-2"
+                >
+                  <!-- Dinamis dirender oleh JS -->
+                </div>
+                <div
+                  class="border-t border-zinc-200 pt-2 flex justify-between items-center font-bold text-zinc-900"
+                >
+                  <span>Total Tagihan:</span>
+                  <span
+                    id="total-tagihan-checkout"
+                    class="text-lg text-indigo-600 font-extrabold"
+                    >Rp 0</span
+                  >
+                </div>
+              </div>
+
+              <!-- Shipping Address Form -->
+              <div class="space-y-3">
+                <label class="block text-sm font-bold text-zinc-800"
+                  >Alamat Pengiriman Lengkap</label
+                >
+                <input
+                  type="text"
+                  id="checkout-nama"
+                  placeholder="Nama Penerima"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/35 focus:border-indigo-500"
+                  required
+                />
+                <input
+                  type="tel"
+                  id="checkout-telp"
+                  placeholder="No. Telepon / WhatsApp"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/35 focus:border-indigo-500"
+                  required
+                />
+                <textarea
+                  id="checkout-alamat"
+                  placeholder="Nama Jalan, Blok, No. Rumah, Kota, Kode Pos"
+                  rows="3"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/35 focus:border-indigo-500"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Payment Method selection -->
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-zinc-800"
+                  >Metode Pembayaran</label
+                >
+                <div class="grid grid-cols-2 gap-3">
+                  <label
+                    class="border-2 border-indigo-600 bg-indigo-50/20 p-3 rounded-xl cursor-pointer flex items-center gap-2 select-none"
+                    id="label-pay-transfer"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="Transfer"
+                      checked
+                      onclick="selectPayment('Transfer')"
+                      class="accent-indigo-600"
+                    />
+                    <span class="text-sm font-bold text-zinc-800"
+                      >Transfer Bank</span
+                    >
+                  </label>
+                  <label
+                    class="border-2 border-zinc-200 p-3 rounded-xl cursor-pointer flex items-center gap-2 select-none"
+                    id="label-pay-cod"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="COD"
+                      onclick="selectPayment('COD')"
+                      class="accent-indigo-600"
+                    />
+                    <span class="text-sm font-bold text-zinc-800"
+                      >COD (Bayar di Tempat)</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checkout Actions -->
+            <div class="mt-8 flex gap-3">
+              <button
+                onclick="tutupModalCheckout()"
+                class="flex-1 border border-zinc-200 py-3.5 rounded-xl font-bold text-zinc-700 hover:bg-zinc-50 transition-colors"
+              >
+                Batal
+              </button>
+              <button
+                onclick="selesaikanCheckout()"
+                class="flex-1 bg-indigo-600 text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 hover:shadow-lg transition-all"
+              >
+                Konfirmasi Pesanan
+              </button>
+            </div>
+          </div>
+
+          <!-- Success Screen State inside Modal -->
+          <div
+            id="checkout-success-content"
+            class="hidden text-center py-8 space-y-6"
+          >
+            <div
+              class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce"
+            >
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="space-y-2">
+              <h4 class="text-2xl font-extrabold text-zinc-900">
+                Pesanan Berhasil Dibuat!
+              </h4>
+              <p class="text-zinc-500 text-sm leading-relaxed max-w-sm mx-auto">
+                Terima kasih telah berbelanja di
+                <span class="font-bold">RagaStore</span>. Tim kurir kami akan
+                segera menyiapkan pesanan dan mengirimkannya langsung ke alamat
+                Anda.
+              </p>
+            </div>
+            <div
+              class="bg-zinc-50 p-4 rounded-xl border border-zinc-100 text-left text-xs space-y-1.5 text-zinc-600 max-w-sm mx-auto"
+            >
+              <p>
+                <span class="font-bold">Penerima:</span>
+                <span id="success-nama">John Doe</span>
+              </p>
+              <p>
+                <span class="font-bold">Metode:</span>
+                <span id="success-metode">Transfer Bank</span>
+              </p>
+              <p>
+                <span class="font-bold">Estimasi Pengiriman:</span> 2-4 Hari
+                Kerja
+              </p>
+            </div>
+            <button
+              onclick="tutupModalCheckout()"
+              class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-zinc-800 transition-colors"
+            >
+              Kembali Berbelanja
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
