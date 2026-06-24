@@ -187,6 +187,15 @@ const daftarProduk = [
     img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
     harga: 650000,
   },
+  {
+    id: 9,
+    nama: "Leather Belt Premium",
+    kategori: "Aksesoris",
+    tag: "NEW ARRIVAL",
+    deskripsi: "Ikat pinggang kulit premium dengan desain minimalis elegan.",
+    img: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&q=80&w=800",
+    harga: 120000
+}
 ];
 
 let keranjangBelanja = [];
